@@ -1,92 +1,58 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "6a0d0919-ccd7-43ee-a44a-4ecf5918ddc7",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import streamlit as st\n",
-    "import pickle\n",
-    "\n",
-    "# Set background image\n",
-    "st.markdown(\n",
-    "    \"\"\"\n",
-    "    <style>\n",
-    "    .reportview-container {\n",
-    "        background: url(\"https://api.time.com/wp-content/uploads/2016/05/relationship-dealbreaker.jpg?quality=85&w=4577\") no-repeat center center fixed;\n",
-    "        background-size: cover;\n",
-    "    }\n",
-    "    </style>\n",
-    "    \"\"\",\n",
-    "    unsafe_allow_html=True\n",
-    ")\n",
-    "\n",
-    "# Load trained model from pickle file\n",
-    "def load_model():\n",
-    "    with open('Heart_failure.pkl', 'rb') as file:\n",
-    "        model = pickle.load(file)\n",
-    "    return model\n",
-    "\n",
-    "# Main Streamlit app code\n",
-    "def main():\n",
-    "    # Set app title\n",
-    "    st.title(\"Heart Disease Classification\")\n",
-    "    \n",
-    "    # Load the trained model\n",
-    "    model = load_model()\n",
-    "\n",
-    "    # Add a sidebar\n",
-    "    st.sidebar.title(\"Attribute Ranges\")\n",
-    "    \n",
-    "    # Display attribute ranges in the sidebar\n",
-    "    attribute_ranges = {\n",
-    "        'Age': '29-76',\n",
-    "        'Sex': 'Male (1), Female (0)',\n",
-    "        'ChestPainType': 'Typical angina, Atypical angina, Non-anginal pain, N/A',\n",
-    "        'RestingBP': '94-145 mmHg',\n",
-    "        'Cholesterol': '126-564 mg/dL',\n",
-    "        'FastingBS': 'True (1), False (0)',\n",
-    "        'RestingECG': 'N/A',\n",
-    "        'MaxHR': '71-202 bpm',\n",
-    "        'ExerciseAngina': 'No (0), Yes (1)',\n",
-    "        'Oldpeak': '0.0-3.5',\n",
-    "        'ST_Slope': 'N/A',\n",
-    "        'HeartDisease': 'No (0), Yes (1)'\n",
-    "    }\n",
-    "    \n",
-    "    for attribute, range_info in attribute_ranges.items():\n",
-    "        st.sidebar.text(f\"{attribute} Range: {range_info}\")\n",
-    "    \n",
-    "    # Display the trained model\n",
-    "    st.header(\"Trained Model\")\n",
-    "    st.write(model)\n",
-    "    \n",
-    "if __name__ == \"__main__\":\n",
-    "    main()\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.9.16"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+import streamlit as st
+import pickle
+
+# Set background image
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: url("https://api.time.com/wp-content/uploads/2016/05/relationship-dealbreaker.jpg?quality=85&w=4577") no-repeat center center fixed;
+        background-size: cover;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Load trained model from pickle file
+def load_model():
+    with open('trained_model.pkl', 'rb') as file:
+        model = pickle.load(file)
+    return model
+
+# Main Streamlit app code
+def main():
+    # Set app title
+    st.title("Heart Disease Classification")
+    
+    # Load the trained model
+    model = load_model()
+
+    # Add a sidebar
+    st.sidebar.title("Attribute Ranges")
+    
+    # Display attribute ranges in the sidebar
+    attribute_ranges = {
+        'Age': '29-76',
+        'Sex': 'Male (1), Female (0)',
+        'ChestPainType': 'Typical angina, Atypical angina, Non-anginal pain, N/A',
+        'RestingBP': '94-145 mmHg',
+        'Cholesterol': '126-564 mg/dL',
+        'FastingBS': 'True (1), False (0)',
+        'RestingECG': 'N/A',
+        'MaxHR': '71-202 bpm',
+        'ExerciseAngina': 'No (0), Yes (1)',
+        'Oldpeak': '0.0-3.5',
+        'ST_Slope': 'N/A',
+        'HeartDisease': 'No (0), Yes (1)'
+    }
+    
+    for attribute, range_info in attribute_ranges.items():
+        st.sidebar.text(f"{attribute} Range: {range_info}")
+    
+    # Display the trained model
+    st.header("Heart_failure.pkl")
+    st.write(model)
+    
+if __name__ == "__main__":
+    main()
