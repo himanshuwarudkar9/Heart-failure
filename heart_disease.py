@@ -48,7 +48,7 @@ def main():
    
 
     # Convert categorical inputs to numerical values
-    sex = 1 if sex == "Male" else 0
+    Sex = 1 if Sex == "Male" else 0
     ChestPainType = {"ASY": 0, "NAP": 1, "ATA": 2, "TA": 3}
     ChestPainType = ChestPainType[ChestPainType]
     FastingBS = 1 if fbs == "True" else 0
