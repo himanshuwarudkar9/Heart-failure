@@ -17,7 +17,7 @@ st.markdown(
 
 
 # Load the trained model
-model = pickle.load(open('heart-disease.pkl', 'rb'))
+model = pickle.load(open('Heart_failure.pkl', 'rb'))
 
 # Create a function to predict heart disease
 def predict_heart_disease(attributes):
