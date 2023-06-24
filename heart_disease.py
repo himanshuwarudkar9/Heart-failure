@@ -28,7 +28,7 @@ def predict_heart_disease(Age, Sex, ChestPainType, RestingBP, Cholesterol, Fasti
     # Make prediction using the trained model
    prediction = model.predict(input_data)
 
-    return prediction[0]
+   return prediction[0]
 
 def main():
     st.markdown("<h1>Heart Disease Predictor</h1>", unsafe_allow_html=True)
