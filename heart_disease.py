@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import numpy as np
 
 # Set background image
 st.markdown(
@@ -22,7 +23,7 @@ model = pickle.load(open('Heart_failure.pkl', 'rb'))
 # Create a function to predict heart disease
 def predict_heart_disease(Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope):
     # Prepare the input data for prediction
-   # input_data = np.array([Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]).reshape(1, -1)
+   input_data = np.array([Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]).reshape(1, -1)
 
     # Make prediction using the trained model
     prediction = model.predict(input_data)
