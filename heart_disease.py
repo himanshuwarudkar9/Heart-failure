@@ -26,7 +26,7 @@ def predict_heart_disease(Age, Sex, ChestPainType, RestingBP, Cholesterol, Fasti
    input_data = np.array([Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]).reshape(1, -1)
 
     # Make prediction using the trained model
-    prediction = model.predict(input_data)
+   prediction = model.predict(input_data)
 
     return prediction[0]
 
