@@ -1,0 +1,92 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6a0d0919-ccd7-43ee-a44a-4ecf5918ddc7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import streamlit as st\n",
+    "import pickle\n",
+    "\n",
+    "# Set background image\n",
+    "st.markdown(\n",
+    "    \"\"\"\n",
+    "    <style>\n",
+    "    .reportview-container {\n",
+    "        background: url(\"https://api.time.com/wp-content/uploads/2016/05/relationship-dealbreaker.jpg?quality=85&w=4577\") no-repeat center center fixed;\n",
+    "        background-size: cover;\n",
+    "    }\n",
+    "    </style>\n",
+    "    \"\"\",\n",
+    "    unsafe_allow_html=True\n",
+    ")\n",
+    "\n",
+    "# Load trained model from pickle file\n",
+    "def load_model():\n",
+    "    with open('Heart_failure.pkl', 'rb') as file:\n",
+    "        model = pickle.load(file)\n",
+    "    return model\n",
+    "\n",
+    "# Main Streamlit app code\n",
+    "def main():\n",
+    "    # Set app title\n",
+    "    st.title(\"Heart Disease Classification\")\n",
+    "    \n",
+    "    # Load the trained model\n",
+    "    model = load_model()\n",
+    "\n",
+    "    # Add a sidebar\n",
+    "    st.sidebar.title(\"Attribute Ranges\")\n",
+    "    \n",
+    "    # Display attribute ranges in the sidebar\n",
+    "    attribute_ranges = {\n",
+    "        'Age': '29-76',\n",
+    "        'Sex': 'Male (1), Female (0)',\n",
+    "        'ChestPainType': 'Typical angina, Atypical angina, Non-anginal pain, N/A',\n",
+    "        'RestingBP': '94-145 mmHg',\n",
+    "        'Cholesterol': '126-564 mg/dL',\n",
+    "        'FastingBS': 'True (1), False (0)',\n",
+    "        'RestingECG': 'N/A',\n",
+    "        'MaxHR': '71-202 bpm',\n",
+    "        'ExerciseAngina': 'No (0), Yes (1)',\n",
+    "        'Oldpeak': '0.0-3.5',\n",
+    "        'ST_Slope': 'N/A',\n",
+    "        'HeartDisease': 'No (0), Yes (1)'\n",
+    "    }\n",
+    "    \n",
+    "    for attribute, range_info in attribute_ranges.items():\n",
+    "        st.sidebar.text(f\"{attribute} Range: {range_info}\")\n",
+    "    \n",
+    "    # Display the trained model\n",
+    "    st.header(\"Trained Model\")\n",
+    "    st.write(model)\n",
+    "    \n",
+    "if __name__ == \"__main__\":\n",
+    "    main()\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.16"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
