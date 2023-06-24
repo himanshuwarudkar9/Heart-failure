@@ -16,7 +16,7 @@ st.markdown(
 
 # Load trained model from pickle file
 def load_model():
-    with open('trained_model.pkl', 'rb') as file:
+    with open('Heart_failure.pkl', 'rb') as file:
         model = pickle.load(file)
     return model
 
