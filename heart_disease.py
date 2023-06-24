@@ -20,53 +20,50 @@ st.markdown(
 # Load the trained model
 model = pickle.load(open('Heart_failure.pkl', 'rb'))
 
-# Create a function to predict heart disease
-def predict_heart_disease(Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope):
-    # Prepare the input data for prediction
-   input_data = np.array([Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]).reshape(1, -1)
+# Function to predict heart failure
+def predict_heart_failure(age, sex, chest_pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope):
+    # Preprocess the input features
+    features = [age, sex, chest_pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope]
+    
+    # Perform any required preprocessing or feature engineering
+    
+    # Make predictions
+    prediction = model.predict([features])[0]
+    
+    return prediction
 
-    # Make prediction using the trained model
-   prediction = model.predict(input_data)
-
-   return prediction[0]
-
+# Create the web app using Streamlit
 def main():
-    st.markdown("<h1>Heart Disease Predictor</h1>", unsafe_allow_html=True)
-    st.markdown("<p>Enter the values for various attributes to predict the presence of heart disease.</p>", unsafe_allow_html=True)
-
-    # Create input fields for the heart disease attributes
-    Age = st.number_input("Age", min_value=0, max_value=120, step=1)
-    Sex = st.selectbox("Sex", ["Male", "Female"])
-    ChestPainType = st.selectbox("Chest Pain Type", ["ASY", "NAP", "ATA", "TA"])
-    RestingBP = st.number_input("Resting Blood Pressure (mm Hg)", min_value=0, step=1)
-    Cholesterol = st.number_input("Serum Cholesterol (mg/dL)", min_value=0, step=1)
-    FastingBS = st.selectbox("Fasting Blood Sugar > 120 mg/dL", ["False", "True"])
-    RestingECG = st.selectbox("Resting Electrocardiographic Results", ["Normal", "LVH", "ST"])
-    MaxHR = st.number_input("Maximum Heart Rate Achieved", min_value=0, step=1)
-    ExerciseAngina = st.selectbox("Exercise Induced Angina", ["No", "Yes"])
-    Oldpeak = st.number_input("ST Depression Induced by Exercise Relative to Rest", min_value=0.0, step=0.1)
-    ST_Slope = st.selectbox("Slope of the Peak Exercise ST Segment", ["Upsloping", "Flat", "Downsloping"])
-   
-
-    # Convert categorical inputs to numerical values
-    Sex = 1 if Sex == "Male" else 0
-    ChestPainType_mapping = {"ASY": 0, "NAP": 1, "ATA": 2, "TA": 3}
-    ChestPainType = ChestPainType_mapping[ChestPainType]
-    FastingBS = 1 if FastingBS == "True" else 0
-    RestingECG_mapping = {"Normal": 0, "LVH": 1, "ST": 2}
-    RestingECG = RestingECG_mapping[RestingECG]
-    ExerciseAngina = 1 if ExerciseAngina == "Yes" else 0
-    ST_Slope_mapping = {"Upsloping": 0, "Flat": 1, "Downsloping": 2}
-    ST_Slope = ST_Slope_mapping[ST_Slope]
-   
-
-    # Perform heart disease prediction when the user clicks the "Predict" button
+    # Set the title and description
+    st.title("Heart Failure Prediction")
+    st.write("This web app predicts the likelihood of heart failure based on input features.")
+    
+    # Create input fields for user input
+    age = st.number_input("Age", min_value=1, max_value=120, step=1)
+    sex = st.selectbox("Sex", ["Male", "Female"])
+    chest_pain_type = st.selectbox("Chest Pain Type", ["ASY", "NAP", "ATA", "TA"])
+    resting_bp = st.number_input("Resting Blood Pressure", min_value=1, max_value=300, step=1)
+    cholesterol = st.number_input("Cholesterol", min_value=1, max_value=1000, step=1)
+    fasting_bs = st.selectbox("Fasting Blood Sugar", ["False", "True"])
+    resting_ecg = st.selectbox("Resting ECG", ["Normal", "LVH", "ST"])
+    max_hr = st.number_input("Max Heart Rate", min_value=1, max_value=300, step=1)
+    exercise_angina = st.selectbox("Exercise-Induced Angina", ["No", "Yes"])
+    oldpeak = st.number_input("Oldpeak", min_value=0.0, max_value=10.0, step=0.1)
+    st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"])
+    
+    # Predict heart failure on button click
     if st.button("Predict"):
-        prediction = predict_heart_disease(Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope)
-        if prediction == 1:
-            st.markdown("<p>The model predicts that the person has <strong>heart disease</strong>.</p>", unsafe_allow_html=True)
+        sex = 1 if sex == "Male" else 0
+        fasting_bs = 1 if fasting_bs == "True" else 0
+        exercise_angina = 1 if exercise_angina == "Yes" else 0
+        
+        prediction = predict_heart_failure(age, sex, chest_pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope)
+        
+        if prediction == 0:
+            st.write("The likelihood of heart failure is low.")
         else:
-            st.markdown("<p>The model predicts that the person does <strong>not have heart disease</strong>.</p>", unsafe_allow_html=True)
+            st.write("The likelihood of heart failure is high.")
 
-if __name__ == "__main__":
+# Run the web app
+if __name__ == '__main__':
     main()
