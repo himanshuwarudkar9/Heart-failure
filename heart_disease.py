@@ -49,12 +49,12 @@ def main():
 
     # Convert categorical inputs to numerical values
     Sex = 1 if Sex == "Male" else 0
-    ChestPainType = {"ASY": 0, "NAP": 1, "ATA": 2, "TA": 3}
-    ChestPainType = ChestPainType[ChestPainType]
-    FastingBS = 1 if fbs == "True" else 0
+    ChestPainType_mapping = {"ASY": 0, "NAP": 1, "ATA": 2, "TA": 3}
+    ChestPainType = ChestPainType_mapping[ChestPainType]
+    FastingBS = 1 if FastingBS == "True" else 0
     RestingECG_mapping = {"Normal": 0, "LVH": 1, "ST": 2}
     RestingECG = RestingECG_mapping[RestingECG]
-    exang = 1 if exang == "Yes" else 0
+    ExerciseAngina = 1 if ExerciseAngina == "Yes" else 0
     ST_Slope_mapping = {"Upsloping": 0, "Flat": 1, "Downsloping": 2}
     ST_Slope = ST_Slope_mapping[ST_Slope]
    
