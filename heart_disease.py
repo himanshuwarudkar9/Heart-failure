@@ -14,45 +14,73 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Load trained model from pickle file
-def load_model():
-    with open('Heart_failure.pkl', 'rb') as file:
-        model = pickle.load(file)
-    return model
 
-# Main Streamlit app code
+
+# Load the trained model
+model = pickle.load(open('heart-disease.pkl', 'rb'))
+
+# Create a function to predict heart disease
+def predict_heart_disease(attributes):
+    # Preprocess the input attributes (if required)
+    # ...
+
+    # Make predictions using the loaded model
+    prediction = model.predict(attributes)
+
+    # Return the prediction
+    return prediction
+
+# Create the Streamlit app
 def main():
-    # Set app title
-    st.title("Heart Disease Classification")
-    
-    # Load the trained model
-    model = load_model()
+    # Set the app title and description
+    st.title("Heart Disease Prediction")
+    st.write("Enter the patient's attributes to predict heart disease.")
 
-    # Add a sidebar
-    st.sidebar.title("Attribute Ranges")
-    
-    # Display attribute ranges in the sidebar
-    attribute_ranges = {
-        'Age': '29-76',
-        'Sex': 'Male (1), Female (0)',
-        'ChestPainType': 'Typical angina, Atypical angina, Non-anginal pain, N/A',
-        'RestingBP': '94-145 mmHg',
-        'Cholesterol': '126-564 mg/dL',
-        'FastingBS': 'True (1), False (0)',
-        'RestingECG': 'N/A',
-        'MaxHR': '71-202 bpm',
-        'ExerciseAngina': 'No (0), Yes (1)',
-        'Oldpeak': '0.0-3.5',
-        'ST_Slope': 'N/A',
-        'HeartDisease': 'No (0), Yes (1)'
-    }
-    
-    for attribute, range_info in attribute_ranges.items():
-        st.sidebar.text(f"{attribute} Range: {range_info}")
-    
-    # Display the trained model
-    st.header("Heart_failure.pkl")
-    st.write(model)
-    
-if __name__ == "__main__":
+    # Create input fields for the patient's attributes
+    age = st.number_input("Age", min_value=1, max_value=100, value=30)
+    sex = st.selectbox("Sex", ["Male", "Female"])
+    chest_pain_type = st.selectbox("Chest Pain Type", ["Typical Angina", "Atypical Angina", "Non-Anginal Pain", "Asymptomatic"])
+    resting_bp = st.number_input("Resting Blood Pressure", min_value=80, max_value=200, value=120)
+    cholesterol = st.number_input("Cholesterol", min_value=50, max_value=600, value=200)
+    fasting_bs = st.selectbox("Fasting Blood Sugar", ["Lower than 120mg/dl", "Greater than 120mg/dl"])
+    resting_ecg = st.selectbox("Resting ECG", ["Normal", "ST-T Wave Abnormality", "Left Ventricular Hypertrophy"])
+    max_hr = st.number_input("Maximum Heart Rate", min_value=50, max_value=250, value=150)
+    exercise_angina = st.selectbox("Exercise Induced Angina", ["No", "Yes"])
+    oldpeak = st.number_input("ST Depression Induced by Exercise Relative to Rest", value=0.0)
+    st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"])
+
+    # Convert selected attributes to the format expected by the model
+    # ...
+
+    # Create a button to make predictions
+    if st.button("Predict"):
+        # Create a dictionary with the input attributes
+        input_data = {
+            'Age': age,
+            'Sex': sex,
+            'ChestPainType': chest_pain_type,
+            'RestingBP': resting_bp,
+            'Cholesterol': cholesterol,
+            'FastingBS': fasting_bs,
+            'RestingECG': resting_ecg,
+            'MaxHR': max_hr,
+            'ExerciseAngina': exercise_angina,
+            'Oldpeak': oldpeak,
+            'ST_Slope': st_slope
+        }
+
+        # Convert the dictionary to a DataFrame
+        input_df = pd.DataFrame([input_data])
+
+        # Make predictions
+        prediction = predict_heart_disease(input_df)
+
+        # Display the prediction
+        if prediction[0] == 1:
+            st.write("The patient is likely to have heart disease.")
+        else:
+            st.write("The patient is unlikely to have heart disease.")
+
+# Run the app
+if __name__ == '__main__':
     main()
