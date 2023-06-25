@@ -57,6 +57,8 @@ def main():
     st.markdown("<h1 style='color: #333; font-weight: bold;'>Heart Failure Prediction</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #333; font-weight: bold;'>This web app predicts the likelihood of heart failure based on input features.</p>", unsafe_allow_html=True)
     
+    st.sidebar.subheader("Disclaimer")
+    st.sidebar.write("This prediction model is for informational purposes only. The results provided should not be considered as medical advice or a definitive diagnosis. Please consult with a qualified healthcare professional for an accurate evaluation of your heart health.")
     # Create input fields for user input
     age = st.number_input("Age", min_value=1, max_value=120, step=1, help="Enter the age in years.")
     sex = st.selectbox("Sex", ["Male", "Female"], help="Select the gender.")
