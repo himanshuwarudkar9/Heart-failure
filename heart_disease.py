@@ -40,6 +40,19 @@ def predict_heart_failure(features):
 
 # Create the web app using Streamlit
 def main():
+    st.markdown(
+        """
+        <style>
+        .reportview-container {
+            background: url('https://api.time.com/wp-content/uploads/2016/05/relationship-dealbreaker.jpg?quality=85&w=4577') no-repeat center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     # Set the title and description
     st.title("Heart Failure Prediction")
     st.write("This web app predicts the likelihood of heart failure based on input features.")
