@@ -61,7 +61,7 @@ def main():
     st.sidebar.write("This prediction model is for informational purposes only. The results provided should not be considered as medical advice or a definitive diagnosis. Please consult with a qualified healthcare professional for an accurate evaluation of your heart health.")
     # Create input fields for user input
     age = st.number_input("Age", min_value=1, max_value=120, step=1, help="Enter the age in years.")
-    sex = st.selectbox("Sex", ["Male", "Female"], help="Select the gender.")
+    sex = st.radio("Sex", ["Male", "Female"], help="Select the gender.")
     chest_pain_type = st.selectbox("Chest Pain Type", ["ASY", "NAP", "ATA", "TA"], help="Select the type of chest pain.")
     resting_bp = st.number_input("Resting Blood Pressure", min_value=1, max_value=300, step=1, help="Enter the resting blood pressure in mmHg.")
     cholesterol = st.number_input("Cholesterol", min_value=1, max_value=1000, step=1, help="Enter the cholesterol level in mg/dL.")
