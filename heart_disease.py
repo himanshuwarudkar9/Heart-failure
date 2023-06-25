@@ -70,7 +70,7 @@ def main():
     oldpeak = st.number_input("Oldpeak", min_value=0.0, max_value=10.0, step=0.1, help="Enter the ST depression induced by exercise relative to rest.")
     st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"], help="Select the slope of the peak exercise ST segment.")
 
-    with st.beta_expander("ℹ️ Help"):
+    with st.expander("ℹ️ Help"):
         st.write("ℹ️ **Age**: Enter the age of the patient in years.")
         st.write("ℹ️ **Sex**: Select the gender of the patient.")
         st.write("ℹ️ **Chest Pain Type**: Select the type of chest pain experienced by the patient.")
