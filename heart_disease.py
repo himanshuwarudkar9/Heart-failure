@@ -58,17 +58,31 @@ def main():
     st.markdown("<p style='color: #333; font-weight: bold;'>This web app predicts the likelihood of heart failure based on input features.</p>", unsafe_allow_html=True)
     
     # Create input fields for user input
-    age = st.number_input("Age", min_value=1, max_value=120, step=1)
-    sex = st.selectbox("Sex", ["Male", "Female"])
-    chest_pain_type = st.selectbox("Chest Pain Type", ["ASY", "NAP", "ATA", "TA"])
-    resting_bp = st.number_input("Resting Blood Pressure", min_value=1, max_value=300, step=1)
-    cholesterol = st.number_input("Cholesterol", min_value=1, max_value=1000, step=1)
-    fasting_bs = st.selectbox("Fasting Blood Sugar", ["False", "True"])
-    resting_ecg = st.selectbox("Resting ECG", ["Normal", "LVH", "ST"])
-    max_hr = st.number_input("Max Heart Rate", min_value=1, max_value=300, step=1)
-    exercise_angina = st.selectbox("Exercise-Induced Angina", ["No", "Yes"])
-    oldpeak = st.number_input("Oldpeak", min_value=0.0, max_value=10.0, step=0.1)
-    st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"])
+    age = st.number_input("Age", min_value=1, max_value=120, step=1, help="Enter the age in years.")
+    sex = st.selectbox("Sex", ["Male", "Female"], help="Select the gender.")
+    chest_pain_type = st.selectbox("Chest Pain Type", ["ASY", "NAP", "ATA", "TA"], help="Select the type of chest pain.")
+    resting_bp = st.number_input("Resting Blood Pressure", min_value=1, max_value=300, step=1, help="Enter the resting blood pressure in mmHg.")
+    cholesterol = st.number_input("Cholesterol", min_value=1, max_value=1000, step=1, help="Enter the cholesterol level in mg/dL.")
+    fasting_bs = st.selectbox("Fasting Blood Sugar", ["False", "True"], help="Select the fasting blood sugar level.")
+    resting_ecg = st.selectbox("Resting ECG", ["Normal", "LVH", "ST"], help="Select the resting electrocardiographic results.")
+    max_hr = st.number_input("Max Heart Rate", min_value=1, max_value=300, step=1, help="Enter the maximum heart rate achieved.")
+    exercise_angina = st.selectbox("Exercise-Induced Angina", ["No", "Yes"], help="Select whether exercise-induced angina is present.")
+    oldpeak = st.number_input("Oldpeak", min_value=0.0, max_value=10.0, step=0.1, help="Enter the ST depression induced by exercise relative to rest.")
+    st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"], help="Select the slope of the peak exercise ST segment.")
+
+    with st.beta_expander("ℹ️ Help"):
+        st.write("ℹ️ **Age**: Enter the age of the patient in years.")
+        st.write("ℹ️ **Sex**: Select the gender of the patient.")
+        st.write("ℹ️ **Chest Pain Type**: Select the type of chest pain experienced by the patient.")
+        st.write("ℹ️ **Resting Blood Pressure**: Enter the resting blood pressure of the patient in mmHg.")
+        st.write("ℹ️ **Cholesterol**: Enter the cholesterol level of the patient in mg/dL.")
+        st.write("ℹ️ **Fasting Blood Sugar**: Select the fasting blood sugar level of the patient.")
+        st.write("ℹ️ **Resting ECG**: Select the resting electrocardiographic results of the patient.")
+        st.write("ℹ️ **Max Heart Rate**: Enter the maximum heart rate achieved by the patient.")
+        st.write("ℹ️ **Exercise-Induced Angina**: Select whether exercise-induced angina is present for the patient.")
+        st.write("ℹ️ **Oldpeak**: Enter the ST depression induced by exercise relative to rest.")
+        st.write("ℹ️ **ST Slope**: Select the slope of the peak exercise ST segment.")
+
 
     # Predict heart failure on button click
     if st.button("Predict"):
